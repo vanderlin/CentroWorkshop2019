@@ -1,18 +1,7 @@
 #Centro Designing with Code
 Repo of all code used for the two day workshop at Centro in Mexico City.
 
-
-**XCode Hot Keys**
-``` 
-⌘+[          indent right.
- ⌘+[          indent left.
- ctr+⌘+↑      toggle to .h and .cpp
- ⌘+↑          jump to top of page.
- ⌘+↓          jump to bottom of page.
- ⌘+r          build and run.
- ⌘+shift+k    clean code.
- ```
-
+# C++ and OF Tips
 **Arrays**
 ```c++
 // static arrays of chars
@@ -168,3 +157,14 @@ ofDrawCircle(ofGetWidth()/2, ofGetHeight()/2, 200);
 
 
 
+# Tips
+**XCode Hot Keys**
+``` 
+⌘+[          indent right.
+⌘+[          indent left.
+ctr+⌘+↑      toggle to .h and .cpp
+⌘+↑          jump to top of page.
+⌘+↓          jump to bottom of page.
+⌘+r          build and run.
+⌘+shift+k    clean code.
+ ```
