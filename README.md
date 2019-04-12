@@ -2,6 +2,17 @@
 Repo of all code used for the two day workshop at Centro in Mexico City.
 
 
+**XCode Hot Keys**
+``` 
+⌘+[          indent right.
+ ⌘+[          indent left.
+ ctr+⌘+↑      toggle to .h and .cpp
+ ⌘+↑          jump to top of page.
+ ⌘+↓          jump to bottom of page.
+ ⌘+r          build and run.
+ ⌘+shift+k    clean code.
+ ```
+
 **Arrays**
 ```c++
 // static arrays of chars
@@ -93,6 +104,20 @@ colorPtr->set(255);
 
 // print pink again (it changed)
 cout << pink << endl;
+```
+
+**Auto Operator**
+```
+// function to make a random color
+static ofColor makeRandomColor() {
+    ofColor color;
+    color.r = ofRandom(255);
+    color.g = ofRandom(255);
+    color.b = ofRandom(255);
+}
+
+// color knows to be set as type ofColor automatically
+auto color = makeRandomColor();
 ```
 
 **Colors**
