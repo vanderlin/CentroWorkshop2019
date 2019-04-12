@@ -123,16 +123,40 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
+    if (selectedIndex != -1) {
+        points[selectedIndex].x = x;
+        points[selectedIndex].y = y;
+    }
 }
 
 //--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button){
-    points.addVertex(x, y);
+void ofApp::mousePressed(int x, int y, int button) {
+    
+    auto mouse = glm::vec2(x, y);
+    
+    // lets see if we touched a point
+    for(int i=0; i<points.size(); i++) {
+        if (glm::length(mouse - points[i]) < 20) {
+            selectedIndex = i;
+            break;
+        }
+    }
+    
+    // if we didnt
+    if (selectedIndex == -1) {
+        
+        // if we have 3 points remove the last one
+        if (points.size() >= 3) {
+            points.getVertices().erase(points.begin());
+        }
+        
+        points.addVertex(x, y);
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+    selectedIndex = -1;
 }
 
 //--------------------------------------------------------------

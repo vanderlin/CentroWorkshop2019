@@ -2,6 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    ofSetFrameRate(60);
+    ofBackground(232, 180, 150);
     bClosePoints = false;
 }
 
@@ -10,6 +13,7 @@ void ofApp::update(){
 
 }
 
+//--------------------------------------------------------------
 glm::vec2 ofApp::getPointAtPct(float pct, ofPolyline &points, bool bClose) {
     
     // the total control points (points array)
@@ -43,7 +47,10 @@ glm::vec2 ofApp::getPointAtPct(float pct, ofPolyline &points, bool bClose) {
     
     // this where we can try other spline interpolations see SplineUtils.h for
     auto pt = SplineUtils::cubic(p0, p1, p2, p3, f);
-    
+   
+    // we can also use ofCurvePoint
+    // auto pt = ofCurvePoint(p0, p1, p2, p3, f);
+  
     return pt;
 }
 //--------------------------------------------------------------
@@ -103,7 +110,7 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     if (key == 'c') points.clear();
-    if (key == '1') bClosePoints = !bClosePoints;
+    if (key == ' ') bClosePoints = !bClosePoints;
 }
 
 //--------------------------------------------------------------
