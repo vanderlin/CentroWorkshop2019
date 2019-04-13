@@ -57,6 +57,39 @@ public:
         }
     }
     
+    void attract(float x, float y, float minDis, float scale = 1.0) {
+        
+        auto vec = glm::vec2(x, y) - pos;
+        float len = glm::length(vec);
+        
+        if (len < minDis && len > 0) {
+            
+            float pct = 1 - (len / minDis);
+            
+            vec /= len;
+            acc += vec * pct * scale;
+            
+        }
+    }
+    
+    void rotate(float x, float y, float minDis, float scale = 1.0) {
+        
+        auto vec = glm::vec2(x, y) - pos;
+        float len = glm::length(vec);
+        
+        if (len < minDis && len > 0) {
+            
+            float pct = 1 - (len / minDis);
+            
+            vec /= len;
+            
+            auto perp = glm::vec2(-vec.y, vec.x);
+            
+            acc += perp * pct * scale;
+            
+        }
+    }
+    
     void repel(Particle &other, float minDis, float scale = 1.0) {
         auto vec = other.pos - pos;
         float len = glm::length(vec);

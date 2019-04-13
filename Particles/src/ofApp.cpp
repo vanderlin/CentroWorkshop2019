@@ -43,9 +43,19 @@ void ofApp::draw(){
         
         Particle & particle = particles[i];
         
+        //add some downward force
         particle.acc.y += gravity;
         
-        particle.repel(mouse.x, mouse.y, 100);
+        // avoid the mouse
+        particle.repel(mouse.x, mouse.y, 100, 1.0);
+        
+        particle.repel(center.x, center.y, 300, 2.0);
+        
+        // force to the center of screen
+        particle.attract(center.x, center.y, 600);
+
+        // rotate around screen center
+        particle.rotate(center.x, center.y, 600, 0.2);
         
         for(int j=i-1; j>=0; j--) {
             Particle & other = particles[j];
@@ -74,7 +84,7 @@ void ofApp::keyPressed(int key){
         Particle particle(ofGetMouseX(), ofGetMouseY());
         particle.vel.x = ofRandom(-2, 2);
         particle.vel.y = ofRandom(-2, 2);
-        
+        particle.vel *= 0;
         //particle.vel *= 10;
         
         particles.push_back(particle);
