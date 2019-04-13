@@ -3,9 +3,10 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
 
-    video.load("test.mov");
+    video.load("two-finders-drawing-720.mov");
     video.play();
     
+    bUseBgImage = true;
     bCaptureBg = true;
     
     thresholdImage.allocate(video.getWidth(), video.getHeight(), OF_IMAGE_GRAYSCALE);
@@ -26,13 +27,16 @@ void ofApp::update() {
             ofxCv::copy(grayMat, bgImage);
             bCaptureBg = false;
         }
-        
-//        cv::Mat diffImage;
-//        ofxCv::absdiff(grayMat, bgImage, diffImage);
-//
-        ofxCv::threshold(grayMat, thresholdImage, threshold);
-        
-//        ofxCv::invert(thresholdImage);
+        if (bUseBgImage) {
+            
+            cv::Mat diffImage;
+            ofxCv::absdiff(grayMat, bgImage, diffImage);
+            
+            ofxCv::threshold(diffImage, thresholdImage, threshold);
+        }
+        else {
+            ofxCv::threshold(grayMat, thresholdImage, threshold);
+        }
         
         contourFinder.findContours(thresholdImage);
         
@@ -48,12 +52,12 @@ void ofApp::draw() {
     
     ofSetColor(161, 20, 69);
     glLineWidth(4);
-    //contourFinder.draw();
     
     for(int i=0; i<contourFinder.size(); i++) {
         auto poly = contourFinder.getPolyline(i);
         poly.getResampledBySpacing(20).draw();
     }
+    
     glLineWidth(1);
     
     ofSetColor(255);

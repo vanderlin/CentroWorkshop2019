@@ -17,7 +17,7 @@ void ofApp::setup() {
 //--------------------------------------------------------------
 void ofApp::update(){
 
-    float pct = 0.5;
+    float pct = 0.2;
     
     auto a = glm::vec2(100, 200);
     auto b = glm::vec2(200, 300);

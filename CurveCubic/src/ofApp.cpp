@@ -36,7 +36,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    float resolution = 0.05;
+    float resolution = 0.005;
     
     ofSetColor(20);
     points.draw();
@@ -83,6 +83,11 @@ void ofApp::draw(){
         ofDrawCircle(pnt, 2);
     }
     curveLine.draw();
+    
+    float pct = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0.0, 1.0);
+    auto pointAlongCurve = curveLine.getPointAtPercent(pct);
+    
+    ofDrawCircle(pointAlongCurve, 10);
     
     // draw some info
     ofDrawBitmapStringHighlight(bUseCubic ? "Cubic" : "Quadratic", 20, 20);

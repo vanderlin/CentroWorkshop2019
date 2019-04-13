@@ -24,41 +24,45 @@ void ofApp::draw(){
     // we must have three points
     if (points.size() == 3) {
         
-        for(int i=0; i<5; i++) {
+        int num = 20;
+        for(int i=0; i<num; i++) {
         
-            float f = ofMap(i, 0, 4, 0.0, 1.0);
+            float f = ofMap(i, 0, num-1, 0.0, 1.0);
             
             // get the mid point of 0 - 1
-            auto mid0 = ((1.0 - f) * points[0]) + (f * points[1]);
+            //auto mid0 = ((1.0 - f) * points[0]) + (f * points[1]);
+            auto mid0 = glm::lerp(points[0], points[1], f);
             
             // get the mid point of 1 - 2
-            auto mid1 = ((1.0 - f) * points[1]) + (f * points[2]);
+            //auto mid1 = ((1.0 - f) * points[1]) + (f * points[2]);
+            auto mid1 = glm::lerp(points[1], points[2], f);
             
             // draw those points
-            ofSetColor(0, 40);
-            ofDrawCircle(mid0, 3);
-            ofDrawCircle(mid1, 3);
-            
+            ofSetColor(0, 20);
+            ofDrawCircle(mid0, 2);
+            ofDrawCircle(mid1, 2);
+//
             // draw line between mid points
             ofDrawLine(mid0, mid1);
-            
-            
+
+//
             // draw a cicle ad the curve point
-            auto curvePnt = ((1.0 - f) * mid0) + (f * mid1);
-            ofDrawCircle(curvePnt, 3);
+            //auto curvePnt = ((1.0 - f) * mid0) + (f * mid1);
+            auto curvePnt = glm::lerp(mid0, mid1, f);
+            ofDrawCircle(curvePnt, 2);
 
         }
-       
-        
-        
+     
         float maxT = ofMap(ofGetMouseX(), 0, ofGetWidth(), 0.0, 1.0, true);
         
         // get the mid point of 0 - 1
-        auto mid0 = ((1.0 - maxT) * points[0]) + (maxT * points[1]);
-        
+        // auto mid0 = ((1.0 - maxT) * points[0]) + (maxT * points[1]);
+        auto mid0 = glm::lerp(points[0], points[1], maxT);
+
         // get the mid point of 1 - 2
-        auto mid1 = ((1.0 - maxT) * points[1]) + (maxT * points[2]);
-        
+        //auto mid1 = ((1.0 - maxT) * points[1]) + (maxT * points[2]);
+        auto mid1 = glm::lerp(points[1], points[2], maxT);
+
         // draw those points
         ofSetColor(0);
         ofDrawCircle(mid0, 3);
@@ -66,11 +70,12 @@ void ofApp::draw(){
         
         // draw line between mid points
         ofDrawLine(mid0, mid1);
+    
+    
         
         ofPolyline line;
         
-        
-        for(float f=0; f<=maxT+.001; f+=0.1f) {
+        for(float f=0; f<=maxT+.001; f+=0.01f) {
             
             // get the mid point of 0 - 1
             auto mid0 = glm::lerp(points[0], points[1], f);
@@ -87,9 +92,9 @@ void ofApp::draw(){
         }
        
         // close the last point
-        /*if (maxT > 0.9) {
-            line.addVertex(points[2]);
-        }*/
+        //if (maxT > 0.9) {
+        //    line.addVertex(points[2]);
+        //}
 
         // draw the new curve line
         ofSetColor(232, 102, 146);
@@ -104,6 +109,7 @@ void ofApp::draw(){
         }
 
     }
+ 
 }
 
 //--------------------------------------------------------------
@@ -131,7 +137,7 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button) {
-    
+   
     auto mouse = glm::vec2(x, y);
     
     // lets see if we touched a point

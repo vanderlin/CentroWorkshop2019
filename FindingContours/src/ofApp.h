@@ -24,6 +24,7 @@ class ofApp : public ofBaseApp {
     void gotMessage(ofMessage msg);
     
     ofVideoPlayer video;
+    bool bUseBgImage;
     bool bCaptureBg;
     ofImage thresholdImage;
     ofImage bgImage;
